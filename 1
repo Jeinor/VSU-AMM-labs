@@ -1,0 +1,60 @@
+#include <iostream>
+using namespace std;
+
+double F(double a, double b, int n) {
+
+	if (n == 1)
+		return -cos(b) + cos(a);
+
+	else if (n == 2)
+		return (b / 2 - sin(2 * b) / 4) - (a / 2 - sin(2 * a) / 4);
+
+	else if (n > 2)
+		return 
+}
+
+void check(double lower_limit, double upper_limit) {
+
+	if (lower_limit > upper_limit) {
+
+		cout << "\nYou idiot. The lower limit should be less than the upper limit. Re-enter integration boundaries.";
+
+		cout << "\nRe-Enter a lower limit to calculate a certain integral: ";
+		cin >> lower_limit;
+
+		cout << "\nRe-Enter a upper limit to calculate a certain integral: ";
+		cin >> upper_limit;
+
+		check(lower_limit, upper_limit);
+	}
+}
+
+void check_exponent(int exponent) {
+
+	if (exponent < 1) {
+		cout << "You idiot. The exponent must be less than 1. \nRe-Enter exponent: ";
+			cin >> exponent;
+
+			check_exponent(exponent);
+	}
+}
+int main()
+{
+	double lower_limit, upper_limit;
+	int exponent;
+
+	cout << "Enter a lower limit to calculate a certain integral: ";
+	cin >> lower_limit;
+
+	cout << "\nEnter a upper limit to calculate a certain integral: ";
+	cin >> upper_limit;
+
+	check(lower_limit, upper_limit);
+
+	cout << "\nEnter exponent n: ";
+	cin >> exponent;
+
+	check_exponent(exponent);
+
+	cout << "The integral is " << F(lower_limit, upper_limit, exponent);
+}
