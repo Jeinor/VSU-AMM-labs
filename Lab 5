@@ -1,0 +1,112 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+void Comparison(int min, int max) {
+	if (min > max)
+		cout << "The value of the first file is greater than the value of the second file.";
+	else
+		cout << "The value of the first file is less than the value of the second file.";
+}
+
+void Write_file(ofstream& file) {
+	char Str[255];
+	cin.ignore();
+	cin.getline(Str, 255);
+	file << Str;
+}
+
+int Check_for_file_1(ifstream& file_1) {
+	int n, min = 0, flag = true;
+
+	if (!file_1.is_open())
+		cout << "Error! File is not found." << endl;
+
+	else {
+		while (!file_1.eof()) {
+
+			file_1 >> n;
+
+			if (flag == true || n < min) {
+				flag = false;
+				min = n;
+			}
+		}
+		return min;
+	}
+}
+
+int Check_for_file_2(ifstream& file_2) {
+	int n, max = 0, flag = true;
+
+	if (!file_2.is_open())
+		cout << "Error! File is not found." << endl;
+
+	else {
+		while (!file_2.eof()) {
+
+			file_2 >> n;
+
+			if (flag == true || n > max) {
+				flag = false;
+				max = n;
+			}
+		}
+		return max;
+	}
+}
+
+int main() {
+
+	int n_for_switch, min, max;
+	
+	cout << "Choose one of two options:" << endl;
+	cout << "1. Create files\n2. Open manually created files on path \"D:\\file_1.txt\"." << endl;
+
+	cin >> n_for_switch;
+
+	switch (n_for_switch) {
+	
+	case 1: {
+
+		ofstream write_file_1("D:\\file_1.txt");
+		Write_file(write_file_1);
+		write_file_1.close();
+
+		ifstream read_file_1("D:\\file_1.txt");
+		min = Check_for_file_1(read_file_1);
+		read_file_1.close();
+
+		ofstream write_file_2("D:\\file_2.txt");
+		Write_file(write_file_2);
+		write_file_2.close();
+
+		ifstream read_file_2("D:\\file_2.txt");
+		max = Check_for_file_2(read_file_2);
+		read_file_2.close();
+
+		Comparison(min, max);
+
+	}
+		break;
+
+	case 2: {
+
+		ifstream file_1("D:\\file_1.txt");
+		min = Check_for_file_1(file_1);
+		file_1.close();
+
+		ifstream file_2("D:\\file_2.txt");
+		max = Check_for_file_2(file_2);
+		file_2.close();
+
+		Comparison(min, max);
+
+	}
+		break;
+	}
+
+	cin.get();
+	cin.get();
+
+}
