@@ -1,0 +1,60 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Node
+{
+    string info;
+    Node *pNext;
+};
+
+Node *Initialization (string x)
+{
+    Node *p = new Node;
+    p->info = x;
+    p->pNext = NULL;
+    
+    return p;
+}
+
+void Push (Node **p, string x)
+{
+    Node *q = new Node;
+    q->info = x;
+    q->pNext = NULL;
+    
+    Node *s = *p;
+    while (s->pNext)
+        s = s->pNext;
+    
+    s->pNext = q;
+}
+
+void Push_books (Node **p, string key, string x)
+{
+    bool chek = 1;
+    Node *s = *p;
+    while (s->pNext)
+    {
+        if (s->info[1] < x[1] && chek == 1)
+        {
+            Node *q = new Node;
+            q->info = x;
+            q->pNext = s->pNext;
+            
+            s->pNext = q;
+            
+            chek = 0;
+        }
+        
+        s = s->pNext;
+    }
+}
+
+int main(int argc, const char * argv[])
+{
+    Node *p = NULL;
+    p = Initialization("Forbidden knowledge");
+    Push (p, "Necromancy");
+    
+}
